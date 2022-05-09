@@ -5,7 +5,7 @@
         {{ element.name }}
       </div>
     </draggable>
-    <input type="text" @change="addArray($event)" />
+    <input class="myInput" placeholder="write something and enter... and drag and drop list items" type="text" @change="addArray($event)" />
     <h1>{{ myArray }}</h1>
     <hr><hr>
     
@@ -43,7 +43,7 @@ export default {
       if (this.myArrayTemp == null) {
         this.myArrayTemp = [];
       }
-      var obj = { name: event.target.value, id: this.myArrayTemp.length + 1 };
+      var obj = { name: event.target.value, id: this.myArray.length + 1 };
       this.$store.commit("setValue", obj);
       event.target.value = "";
     },
@@ -57,5 +57,14 @@ export default {
   margin-bottom: 10px;
   padding: 10px;
   cursor: pointer;
+}
+.myInput{
+   width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 </style>
