@@ -1,18 +1,15 @@
 <template>
-<div>
-  <draggable v-model="myArray">
-    <transition-group>
+  <div>
+    <draggable v-model="myArray">
       <div class="drop-zone" v-for="element in myArray" :key="element.id">
         {{ element.name }}
       </div>
-     
-    </transition-group>
+    </draggable>
+    <input type="text" @change="addArray($event)" />
+    <h1>{{ myArray }}</h1>
+    <hr><hr>
     
-  </draggable>
-  <h1>{{myArray}}</h1>
-</div>
-
-
+  </div>
 </template>
 
 <script>
@@ -21,15 +18,35 @@ import draggable from "vuedraggable";
 export default {
   data() {
     return {
-      myArray: [
-        { id: 1, name: "soner" },
-        { id: 2, name: "ardan" },
-        { id: 3, name: "şişman" },
-      ],
+      myArray: this.$store.getters.getValues,
     };
   },
+  // computed: {
+  //   myArrayTemp: {
+  //     get() {
+  //       console.log("get çalıştı");
+  //       return this.$store.getters.getValues;
+  //     },
+  //     set() {
+  //       // console.log("set : " + obj);
+  //       // this.$store.commit("setValue", obj);
+  //     },
+  //   },
+  // },
   components: {
     draggable,
+  },
+  methods: {
+    addArray(event) {
+      // this.myArrayTemp.push({name:event.target.value,id:this.$store.state.myArray.length+1})
+      console.log();
+      if (this.myArrayTemp == null) {
+        this.myArrayTemp = [];
+      }
+      var obj = { name: event.target.value, id: this.myArrayTemp.length + 1 };
+      this.$store.commit("setValue", obj);
+      event.target.value = "";
+    },
   },
 };
 </script>
