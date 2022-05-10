@@ -1,6 +1,6 @@
 <template>
   <div>
-    <draggable v-model="myArray">
+    <draggable v-model="myArray" @change="log">
       <div class="drop-zone" v-for="element in myArray" :key="element.id">
         {{ element.name }}
       </div>
@@ -21,32 +21,20 @@ export default {
       myArray: this.$store.getters.getValues,
     };
   },
-  // computed: {
-  //   myArrayTemp: {
-  //     get() {
-  //       console.log("get çalıştı");
-  //       return this.$store.getters.getValues;
-  //     },
-  //     set() {
-  //       // console.log("set : " + obj);
-  //       // this.$store.commit("setValue", obj);
-  //     },
-  //   },
-  // },
   components: {
     draggable,
   },
   methods: {
     addArray(event) {
-      // this.myArrayTemp.push({name:event.target.value,id:this.$store.state.myArray.length+1})
       console.log();
-      if (this.myArrayTemp == null) {
-        this.myArrayTemp = [];
-      }
+     
       var obj = { name: event.target.value, id: this.myArray.length + 1 };
       this.$store.commit("setValue", obj);
       event.target.value = "";
     },
+    log(){
+      this.$store.commit("changeValue", this.myArray);
+    }
   },
 };
 </script>
